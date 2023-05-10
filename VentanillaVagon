@@ -1,0 +1,53 @@
+public class VentanillaVagon extends ControlServicio implements Modificable {
+
+    private int opacidad;
+    private String ubicacion;
+
+    public VentanillaVagon(String ubicacion, String nombre) {
+        super(nombre);
+        this.ubicacion = ubicacion;
+        this.opacidad = Modificable.MIN;
+    }
+
+    public VentanillaVagon(String ubicacion, String nombre, int opacidad) {
+        super(nombre);
+        this.ubicacion = ubicacion;
+        if (opacidad < Modificable.MIN || opacidad > Modificable.MAX) {
+            throw new IllegalArgumentException("La opacidad debe estar entre " + Modificable.MIN + " y " + Modificable.MAX);
+        }
+        this.opacidad = opacidad;
+    }
+
+    public int getOpacidad() {
+        return opacidad;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    @Override
+    public void aumentar() throws Exception {
+        if (opacidad == Modificable.MAX) {
+            throw new Exception("La opacidad de la ventanilla ya está en su valor máximo (100%)");
+        }
+        opacidad += 5;
+    }
+
+    @Override
+    public void disminuir() throws Exception {
+        if (opacidad == Modificable.MIN) {
+            throw new Exception("La opacidad de la ventanilla ya está en su valor mínimo (0%)");
+        }
+        opacidad -= 5;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                "Tipo de Servicio: Ventanilla\n" +
+                "Ventanilla Vagon Tren\n" +
+                "\tOpacidad: " + opacidad + "\n" +
+                "\tUbicacion Ventanilla: " + ubicacion;
+    }
+}
